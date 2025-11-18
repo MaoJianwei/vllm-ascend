@@ -1,4 +1,4 @@
-name: 'image / openEuler'
+name: 'mao-image-openEuler'
 # This is a docker build check and publish job:
 # 1. PR Triggered docker image build check
 #   - is for image build check
@@ -160,7 +160,7 @@ jobs:
         push: ${{ github.event_name != 'pull_request' }}
         labels: ${{ steps.meta.outputs.labels }}
         tags: ${{ steps.meta.outputs.tags }}
-        file: Dockerfile.openEuler
+        file: Dockerfile.openEuler.mao
         build-args: |
           PIP_INDEX_URL=https://pypi.org/simple
         provenance: false
