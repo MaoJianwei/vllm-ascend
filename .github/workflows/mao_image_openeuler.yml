@@ -19,7 +19,7 @@ on:
       vllm_version:
         description: 'vllm tags name'
         required: true
-        default: 'main'
+        default: '2918c1b49c88c29783c86f78d2c4221cb9622379'
   pull_request:
     branches:
       - 'main'
@@ -104,10 +104,7 @@ jobs:
         #    - pre/post/dev: v0.7.1rc1-openeuler/v0.7.1rc1-openeuler/v0.7.1rc1.dev1-openeuler/v0.7.1.post1-openeuler, no latest
         #      which follow the rule from vLLM with prefix v
         # TODO(yikun): the post release might be considered as latest release
-        tags: |
-          type=ref,event=branch,suffix=-openeuler
-          type=ref,event=pr,suffix=-openeuler
-          type=pep440,pattern={{raw}},suffix=-openeuler
+        tags: ${{ github.event.inputs.docker_images }}
         flavor:
           latest=true
 
@@ -135,7 +132,7 @@ jobs:
         password: ${{ secrets.GHCR_TOKEN }}
 
           
-    - name: Build and push 910b
+    - name: Build and push 910b with vllm ${{ github.event.inputs.vllm_version }}
       id: build-and-push
       uses: docker/build-push-action@v6
       with:
@@ -150,7 +147,7 @@ jobs:
         push: ${{ github.event_name != 'pull_request' }}
         labels: ${{ steps.meta.outputs.labels }}
         tags: ${{ steps.meta.outputs.tags }}
-        file: Dockerfile.openEuler.mao
+        file: Dockerfile.openEuler
         build-args: |
           PIP_INDEX_URL=https://pypi.org/simple
           VLLM_TAG=${{ github.event.inputs.vllm_version }}
