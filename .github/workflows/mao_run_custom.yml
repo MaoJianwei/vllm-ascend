@@ -1,0 +1,22 @@
+name: 'mao-run-custom'
+on:
+  workflow_dispatch:
+
+jobs:
+  docker-pull:
+    runs-on: ubuntu-22.04
+    name: docker image pull
+    steps:
+      - name: Pull Docker Images and Package
+        run: |
+          images=""
+          IFS=',' read -r -a image_array <<< "$images"
+          for image in "${image_array[@]}"; do
+            docker pull "${image}" --platform "linux/amd64"
+            image_name="${image//\//_}"
+            image_name="${image_name//:/_}"
+            docker save "${image}" -o "${image_name}-amd64.tar"
+            gzip -c "${image_name}-amd64.tar" > "${image_name}-amd64.tar.gz"
+            ls -alh
+            rm "${image_name}-amd64.tar"
+          done
