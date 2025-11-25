@@ -7,6 +7,12 @@ jobs:
     runs-on: ubuntu-22.04
     name: docker image pull
     steps:
+      - name: Free up disk space
+        uses: jlumbroso/free-disk-space@main # v1.3.1
+        with:
+          tool-cache: true
+          docker-images: false
+        
       - name: Pull Docker Images and Package
         run: |
           images="ghcr.io/maojianwei/vllm-ascend:main-openeuler"
