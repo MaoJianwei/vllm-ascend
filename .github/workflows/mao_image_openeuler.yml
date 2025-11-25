@@ -11,6 +11,15 @@ name: 'mao-image-openEuler'
 #   - Publish when tag with v* (pep440 version)  ===>  vllm-ascend:v1.2.3-openeuler / vllm-ascend:v1.2.3rc1-openeuler
 on:
   workflow_dispatch:
+    inputs:
+      docker_images:
+        description: '请填写docker镜像名称'
+        required: true
+        default: 'main-openeuler'
+      vllm_version:
+        description: 'vllm tags name'
+        required: true
+        default: 'main'
   pull_request:
     branches:
       - 'main'
@@ -144,6 +153,7 @@ jobs:
         file: Dockerfile.openEuler.mao
         build-args: |
           PIP_INDEX_URL=https://pypi.org/simple
+          VLLM_TAG=${{ github.event.inputs.vllm_version }}
         provenance: false
 
     # Sign the resulting Docker image digest except on PRs.
