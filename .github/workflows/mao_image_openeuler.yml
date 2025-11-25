@@ -53,6 +53,10 @@ on:
       - 'CMakeLists.txt'
       - 'csrc/**'
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: false
+  
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
