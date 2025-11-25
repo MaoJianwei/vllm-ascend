@@ -54,9 +54,9 @@ on:
       - 'csrc/**'
 
 # only cancel in-progress runs of the same workflow
-concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
+#concurrency:
+#  group: ci-${{ github.workflow }}-${{ github.ref }}
+#  cancel-in-progress: false
   
 env:
   # Use docker.io for Docker Hub if empty
