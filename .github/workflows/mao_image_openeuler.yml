@@ -10,9 +10,6 @@ name: 'mao-image-openEuler'
 #   - is for final release image
 #   - Publish when tag with v* (pep440 version)  ===>  vllm-ascend:v1.2.3-openeuler / vllm-ascend:v1.2.3rc1-openeuler
 on:
-  schedule:
-    # Cron 表达式：分 时 日 月 周（UTC 时区）
-    - cron: '0 * * * *'  # 关键：每小时的 0 分执行（如 00:00、01:00、02:00 UTC）
   workflow_dispatch:
     inputs:
       docker_images:
